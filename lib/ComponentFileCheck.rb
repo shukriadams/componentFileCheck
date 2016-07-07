@@ -26,7 +26,12 @@ module SCSSLint
                 found = false
 
                 @components.each do |component|
-                    if (selector.start_with?(component))
+                    if (selector == component)
+                        found = true
+                        break
+                    end
+
+                    if (selector.start_with?(component + "-"))
                         found = true
                         break
                     end
