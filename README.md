@@ -12,6 +12,8 @@ linters:
         enabled: true
         # files to search
         glob: 'foo/bar/**/*.scss'
+        # optional list of classes/components to ignore
+        ignoredComponents: [foo, bar]
 
 Use
 ---
