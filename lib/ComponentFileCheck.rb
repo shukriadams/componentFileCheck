@@ -8,11 +8,16 @@ module SCSSLint
         def visit_root(_node)
             components = Dir.glob(config['glob'])
             outarray =[]
+            @ignoredComponents = []
+
+            if (config['ignoredComponents'] != nil)
+                 @ignoredComponents = config['ignoredComponents']
+            end
 
             components.each do |component|
                 base = File.basename(component, '.scss')
                 outarray.push(base)
-            end  
+            end
 
             @components = outarray
 
@@ -37,8 +42,8 @@ module SCSSLint
                     end
                 end
 
-                if not found
-                    add_lint(node, " #{selector} does not belong to a named component file")
+                if not found and !@ignoredComponents.include?selector
+                    add_lint(node, " \".#{selector}\" does not belong to a named component file.")
                 end
             end
             yield # Continue linting children
